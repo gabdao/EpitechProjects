@@ -1,25 +1,28 @@
-Count Words
-Description
-Programme C qui analyse une chaîne de caractères passée en paramètre et affiche le nombre d'occurrences de chaque mot sur une ligne séparée.
-Objectif
-Implémenter un programme countwords qui doit :
+# Count Words
 
-Prendre une chaîne de caractères en paramètre
-Compter les occurrences de chaque mot unique
-Afficher les résultats dans l'ordre d'apparition des mots
-Gérer les séparateurs (espaces et tabulations)
-Afficher uniquement un \n si aucun paramètre n'est fourni
+## Description
 
-Règles de traitement
+C program that analyzes a string passed as parameter and displays the number of occurrences of each word on a separate line.
 
-Les mots sont des chaînes séparées par des espaces ou des tabulations
-L'ordre d'affichage suit l'ordre de première apparition dans la chaîne
-Format de sortie : mot: nombre_occurrences
+## Objective
 
-Contraintes
+Implement a `countwords` program that must:
+- Take a string as parameter
+- Count occurrences of each unique word
+- Display results in order of word appearance
+- Handle separators (spaces and tabulations)
+- Display only `\n` if no parameter is provided
 
-Langage : C
-Fonctions autorisées : write, malloc, free, printf
-Compilation via Makefile avec règles re, clean, fclean
-Code d'erreur 84 en cas d'erreur, 0 sinon
-Messages d'erreur sur la sortie d'erreur
+### Processing Rules
+
+- Words are strings separated by spaces or tabulations
+- Display order follows first appearance order in the string
+- Output format: `word: occurrence_count`
+
+## Constraints
+
+- Language: C
+- Authorized functions: `write`, `malloc`, `free`, `printf`
+- Compilation via Makefile with `re`, `clean`, `fclean` rules
+- Error code 84 on error, 0 otherwise
+- Error messages on error output
