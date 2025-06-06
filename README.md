@@ -19,9 +19,9 @@ Projects are organized into folders. Each folder typically includes:
 ## Technologies Used
 
 - C
+- Makefiles
 - Python
 - Javascript/Typescript
-- Makefiles
 
 ## A Few Words on Code Quality
 
