@@ -33,9 +33,6 @@ Implement a `103cipher` program that must:
 - `flag`: 0 for encryption, 1 for decryption
 
 ## Constraints
-
-- Language: C (implemented)
-- Compilation via Makefile with `re`, `clean`, `fclean` rules
 - Error code 84 on error, 0 otherwise
 - Matrix calculus libraries (like numpy) prohibited
 - Zero padding used to fit proper matrix sizes
