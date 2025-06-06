@@ -2,25 +2,25 @@
 
 ## Description
 
-Programme C implémentant un algorithme de détection et comptage d'îles dans une grille 2D. Le système analyse un tableau de caractères pour identifier les îles formées par des 'X' connectés et les numéroter séquentiellement.
+C program implementing an island detection and counting algorithm in a 2D grid. The system analyzes a character array to identify islands formed by connected 'X' characters and numbers them sequentially.
 
-## Objectif
+## Objective
 
-Implémenter une fonction `count_island` qui doit :
-- Scanner une grille 2D contenant des '.' (eau) et des 'X' (terre)
-- Identifier les îles formées par des 'X' connectés
-- Remplacer chaque 'X' par le numéro de son île (commençant à 0)
-- Retourner le nombre total d'îles trouvées
+Implement a `count_island` function that must:
+- Scan a 2D grid containing '.' (water) and 'X' (land)
+- Identify islands formed by connected 'X' characters
+- Replace each 'X' with its island number (starting from 0)
+- Return the total number of islands found
 
-### Règles de connexion
+### Connection Rules
 
-Deux caractères sont connectés s'ils sont :
-- Contigus sur la même ligne (horizontalement)
-- Dans la même colonne sur des lignes contiguës (verticalement)
+Two characters are connected if they are:
+- Contiguous on the same line (horizontally)
+- In the same column on contiguous lines (vertically)
 
-## Contraintes
+## Constraints
 
-- Langage : C
-- Utilisation de la récursion obligatoire
-- Maximum 10 îles par grille
-- Traitement ligne par ligne dans l'ordre d'apparition
+- Language: C
+- Recursive approach required
+- Maximum 10 islands per grid
+- Line-by-line processing in order of appearance
