@@ -1,6 +1,6 @@
 # Epitech School Projects
 
-This repository contains a collection of projects developed during my studies at [Epitech](https://www.epitech.eu/). The projects cover various programming languages, and concepts that I am exploring throughout my academic journey.
+This repository contains a collection of projects developed during my studies at [Epitech](https://www.epitech.eu/). The projects cover various programming languages, and concepts that I am exploring throughout my academic journey. <br />
 It also contains some useful specific files exclusive to epitech.
 
 ## About
