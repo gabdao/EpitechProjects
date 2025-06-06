@@ -34,4 +34,4 @@ This repository is shared for educational and personal reference purposes only. 
 
 ## Contributors
 
-Big shoutout to [@gigabyteZ390] my mate for almost all the duo projects
+Big shoutout to [@gigabyteZ390](https://github.com/gigabyteZ390) my mate for almost all the duo projects
