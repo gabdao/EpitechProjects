@@ -1,0 +1,177 @@
+#!/usr/bin/env python3
+import sys
+import math
+
+#function from old reader.py to check if all working in one file
+def read_csv_data(filename, country_codes):
+    found_countries = []
+    years_data = None
+    all_populations = []
+    
+    try:
+        with open(filename, "r") as file:
+            header_line = file.readline()
+            for line in file:
+                data = line.strip().split(';')
+                if data[1] in country_codes:
+                    found_countries.append(data[0])
+                    years, populations = get_years_and_populations(data)
+                    if years_data is None:
+                        years_data = years
+                    all_populations.append(populations)
+        
+        if not all_populations:
+            return [], [], []
+
+        n_years = len(years_data)
+        populations_data = [0] * n_years
+        for year in range(n_years):
+            total = sum(pop[year] for pop in all_populations)
+            populations_data[year] = total
+                    
+    except FileNotFoundError:
+        raise FileNotFoundError("CSV file not found")
+        
+    return found_countries, years_data, populations_data
+
+def get_years_and_populations(data):
+    years = list(range(1960, 2018))
+    populations = [float(pop) for pop in data[2:]]
+    return years, populations
+
+#function from old calculator.py to check if all working in one file
+
+def calculate_sums(years, populations):
+    sums = {
+        "sum_x": sum(years),
+        "sum_y": sum(populations),
+        "sum_x_squared": sum(x ** 2 for x in years),
+        "sum_y_squared": sum(y ** 2 for y in populations),
+        "sum_xy": sum(x * y for x, y in zip(years, populations))
+    }
+    return sums
+
+def calculate_fit1(years, populations):
+    populations_in_millions = [p / 1000000 for p in populations]
+    n = len(years)
+    sums = {
+        "sum_x": sum(years),
+        "sum_y": sum(populations_in_millions),
+        "sum_x_squared": sum(x ** 2 for x in years),
+        "sum_xy": sum(x * y for x, y in zip(years, populations_in_millions)),
+    }
+    numerator_a = n * sums["sum_xy"] - sums["sum_x"] * sums["sum_y"]
+    denominator_a = n * sums["sum_x_squared"] - sums["sum_x"] ** 2
+    a = numerator_a / denominator_a
+    b = (sums["sum_y"] - a * sums["sum_x"]) / n
+    return a, b
+
+def calculate_rmsd(years, populations, a, b):
+    populations_in_millions = [p / 1000000 for p in populations]
+    n = len(years)
+    residuals = [(y - (a * x + b)) ** 2 for x, y in zip(years, populations_in_millions)]
+    rmsd = math.sqrt(sum(residuals) / n)
+    return rmsd
+
+def calculate_rmsd2(populations, years, a, b):
+    populations_in_millions = [p / 1000000 for p in populations]
+    n = len(years)
+    numerator = 0
+    for i in range(n):
+        x_i = years[i]
+        y_i = populations_in_millions[i]
+        x_predicted = a * y_i + b
+        numerator += (x_i - x_predicted) ** 2
+    
+    rmsd = math.sqrt(numerator / n)
+    return rmsd / a
+
+def predict_population(year, a, b):
+    return a * year + b
+
+def calculate_fit2(years, populations):
+    populations_in_millions = [p / 1000000 for p in populations]
+    n = len(years)
+    sums = {
+        "sum_x": sum(populations_in_millions),
+        "sum_y": sum(years),
+        "sum_x_squared": sum(x ** 2 for x in populations_in_millions),
+        "sum_xy": sum(x * y for x, y in zip(populations_in_millions, years)),
+    }
+    numerator_a = n * sums["sum_xy"] - sums["sum_x"] * sums["sum_y"]
+    denominator_a = n * sums["sum_x_squared"] - sums["sum_x"] ** 2
+    a = numerator_a / denominator_a
+    b = (sums["sum_y"] - a * sums["sum_x"]) / n
+    return a, b
+
+def calculate_correlation(years, populations):
+    populations_in_millions = [p / 1000000 for p in populations]
+    n = len(years)
+
+    mean_x = sum(years) / n
+    mean_y = sum(populations_in_millions) / n
+
+    numerator = 0
+    sum_x_squared = 0
+    sum_y_squared = 0
+    for x, y in zip(years, populations_in_millions):
+        x_dev = x - mean_x
+        y_dev = y - mean_y
+        numerator += x_dev * y_dev
+        sum_x_squared += x_dev * x_dev
+        sum_y_squared += y_dev * y_dev
+
+    correlation = numerator / math.sqrt(sum_x_squared * sum_y_squared)
+    return correlation
+
+
+def display_usage():
+    print("USAGE")
+    print("    ./105demography [code]+\n")
+    print("DESCRIPTION")
+    print("    code    country code")
+    return 0
+
+def main():
+    if len(sys.argv) < 2:
+        print("Error: no country code provided", file=sys.stderr)
+        return 84
+    
+    if len(sys.argv) == 2 and sys.argv[1] == "-h":
+        return display_usage()
+
+    try:
+        countries, years, populations = read_csv_data("./data/105demography_data.csv", sys.argv[1:])
+        print("Country:", ", ".join(countries))
+        
+        a1, b1 = calculate_fit1(years, populations)
+        print(f"Fit1")
+        print(f"  Y = {a1:.2f} X - {abs(b1):.2f}")
+
+        rmsd1 = calculate_rmsd(years, populations, a1, b1)
+        print(f"  Root-mean-square deviation: {rmsd1:.2f}")
+
+        prediction1 = predict_population(2050, a1, b1)
+        print(f"  Population in 2050: {prediction1:.2f}")
+
+        a2, b2 = calculate_fit2(years, populations)
+        print(f"Fit2")
+        print(f"  X = {a2:.2f} Y + {b2:.2f}")
+
+        rmsd2 = calculate_rmsd2(populations, years, a2, b2)
+        print(f"  Root-mean-square deviation: {rmsd2:.2f}")
+
+        prediction2 = (2050 - b2) / a2
+        print(f"  Population in 2050: {prediction2:.2f}")
+
+        correlation = calculate_correlation(years, populations)
+        print(f"Correlation: {correlation:.4f}")
+        
+    except FileNotFoundError:
+        print("Error: File 105demography_data.csv not found", file=sys.stderr)
+        return 84
+
+    return 0
+
+if __name__ == "__main__":
+    main()
