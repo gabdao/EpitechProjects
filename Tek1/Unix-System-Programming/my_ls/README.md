@@ -11,28 +11,6 @@ Implement a `my_ls` program that must:
 - Display file information with proper formatting
 - Support recursive directory traversal
 
-### Supported Options
-- `-l`: Long format listing (permissions, links, owner, group, size, date)
-- `-a`: Show all files including hidden files (starting with '.')
-- `-R`: Recursive listing of subdirectories
-- `-d`: List directories themselves, not their contents
-- `-r`: Reverse sort order
-- `-t`: Sort by modification time (newest first)
-
-### Option Combinations
-Options can be combined in any order:
-```bash
-./my_ls -l -t        # Separate options
-./my_ls -lRt         # Combined options
-./my_ls -lt -R -t    # Mixed format
-```
-
-### Multiple File Arguments
-```bash
-./my_ls -l /dev /usr/sbin
-./my_ls -l -r file1 file2
-```
-
 ## Technical Requirements
 
 **Core Features:**
@@ -41,11 +19,6 @@ Options can be combined in any order:
 - User and group name resolution
 - File size and modification time display
 - Proper column alignment in long format
-
-**Bonus Features:**
-- Column formatting without `-l` option
-- File sorting and coloring
-- Additional options: `-u`, `-F`, `-g`, `-f`
 
 ## Constraints
 - Language: C
@@ -58,7 +31,6 @@ Options can be combined in any order:
 - File information: `stat`, `lstat`, `readlink`
 - User/group info: `getpwuid`, `getgrgid`
 - Time functions: `time`, `ctime`
-- I/O: `write`
 - Memory: `malloc`, `free`
 - Error handling: `perror`, `strerror`, `exit`
 - Variadic functions: `va_start`, `va_arg`, `va_end`
