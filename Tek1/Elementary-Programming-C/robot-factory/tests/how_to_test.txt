@@ -1,0 +1,5 @@
+hexdump -C "nom du fichiermy.cor" généré par notre programme
+
+hexdump -C "nom du fichiermy.cor" donné par l'intra
+
+Comparer sorties
