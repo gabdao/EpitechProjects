@@ -27,9 +27,5 @@ Implement a `102architect` program that must:
 - Transformations are applied in the order specified
 
 ## Constraints
-
-- Language: C (implemented)
-- Compilation via Makefile with `re`, `clean`, `fclean` rules
-- Error code 84 on error, 0 otherwise
 - Matrix calculus libraries (like numpy) prohibited
 - Must use homogeneous coordinates (3x3 matrices)
