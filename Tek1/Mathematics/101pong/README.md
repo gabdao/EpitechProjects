@@ -26,9 +26,6 @@ Implement a `101pong` program that must:
 - `n`: Time shift (≥ 0, integer)
 
 ## Constraints
-
-- Language: C (implemented)
-- Compilation via Makefile with `re`, `clean`, `fclean` rules
 - Error code 84 on error, 0 otherwise
 - Error messages on error output
 - Precise float number handling required
