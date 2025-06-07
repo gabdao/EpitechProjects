@@ -31,3 +31,7 @@ These projects reflect a learning phase. Some parts of the code may not follow b
 ## License
 
 This repository is shared for educational and personal reference purposes only. Please do not reuse this code in academic projects (especially for people from Epitech, la moulinette c'est méchant).
+
+## Contributors
+
+Big shoutout to [@gigabyteZ390](https://github.com/gigabyteZ390) my mate for almost all the duo projects
