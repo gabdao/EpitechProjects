@@ -1,0 +1,13 @@
+diff --git a/recode/Makefile b/recode/Makefile
+index 0ff03ee..f4ff069 100644
+--- a/recode/Makefile
++++ b/recode/Makefile
+@@ -42,7 +42,7 @@ NAME =	pipeto
+ 
+ CC ?= gcc
+ 
+-LDLIBS =  -ldl
++LDLIBS =  -ldl -lcrypt
+ 
+ CFLAGS += -Wall -Wextra -fPIC -fno-stack-protector -Wno-implicit-function-declaration -fno-pie
+ 

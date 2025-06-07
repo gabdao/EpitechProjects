@@ -1,0 +1,12 @@
+diff --git a/recode/include/pipeto.h b/recode/include/pipeto.h
+index fd3649e..2cf35e1 100644
+--- a/recode/include/pipeto.h
++++ b/recode/include/pipeto.h
+@@ -12,6 +12,7 @@
+ 
+ extern bool IS_ADMIN;
+ #define UNUSED __attribute__((unused))
++#define HASH_SALT "pipeto9999"
+ 
+ int my_console(void);
+ 

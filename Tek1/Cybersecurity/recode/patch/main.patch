@@ -1,0 +1,31 @@
+diff --git a/recode/src/main.c b/recode/src/main.c
+index ae558ad..9fc9a18 100644
+--- a/recode/src/main.c
++++ b/recode/src/main.c
+@@ -1,19 +1,13 @@
+ /*
+-** EPITECH PROJECT, 2024
++** EPITECH PROJECT, 2025
+ ** Pipeto
+ ** File description:
+ ** main
+ */
++
+ #include "pipeto.h"
+-int
+-	main
+-	(
+-			UNUSED int       ac
+-			, UNUSED char ** av
+-			)
+-	{
+-		return
+-				my_console
+-				(
+-						);
+-	}
++
++int main(UNUSED int ac, UNUSED char **av)
++{
++	return my_console();
++}

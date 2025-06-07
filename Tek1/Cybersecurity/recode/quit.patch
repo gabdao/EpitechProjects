@@ -1,0 +1,15 @@
+diff --git a/recode/src/commands/quit.c b/recode/src/commands/quit.c
+index 1abfd84..51f2a8a 100644
+--- a/recode/src/commands/quit.c
++++ b/recode/src/commands/quit.c
+@@ -8,8 +8,8 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
+-void quit()
+-{   
++void quit(void)
++{
+     printf("Exiting program...\n");
+     exit(0);
+ }

@@ -1,0 +1,137 @@
+diff --git a/recode/include/history.h b/recode/include/history.h
+index 452b6f5..e857297 100644
+--- a/recode/include/history.h
++++ b/recode/include/history.h
+@@ -2,6 +2,8 @@
+ #define HISTORY_H
+ 
+ #define MAX_COMMAND_LENGTH 256
++#define HISTORY_FILE ".pipeto_history"
++#define MAX_HISTORY_SIZE 1000
+ 
+ void history_init(void);
+ void history_add(const char *command);
+diff --git a/recode/src/commands/history.c b/recode/src/commands/history.c
+index 8b6a765..b30bba1 100644
+--- a/recode/src/commands/history.c
++++ b/recode/src/commands/history.c
+@@ -1,74 +1,88 @@
++/*
++** EPITECH PROJECT, 2025
++** Pipeto
++** File description:
++** history
++*/
++
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
+ #include <unistd.h>
+ #include "history.h"
+ 
+-#define HISTORY_FILE ".pipeto_history"
+-#define MAX_HISTORY_SIZE 1000
+-
+ static char **history = NULL;
+ static int history_count = 0;
+ static int history_size = 0;
+ 
++static history_init_loop(char *line)
++{
++    if (strlen(line) > 0) {
++        history[history_count] = strdup(line);
++        if (history[history_count])
++            history_count++;
++    }
++}
++
+ void history_init(void)
+ {
+     FILE *file;
+     char line[MAX_COMMAND_LENGTH];
+-    
++
+     history = malloc(sizeof(char *) * MAX_HISTORY_SIZE);
+     if (!history)
+         return;
+-        
+     history_size = MAX_HISTORY_SIZE;
+     history_count = 0;
+-    
+     file = fopen(HISTORY_FILE, "r");
+     if (file) {
+-        while (fgets(line, sizeof(line), file) && history_count < MAX_HISTORY_SIZE) {
++        while (fgets(line, sizeof(line), file) && history_count <
++        MAX_HISTORY_SIZE) {
+             line[strcspn(line, "\n")] = '\0';
+-            if (strlen(line) > 0) {
+-                history[history_count] = strdup(line);
+-                if (history[history_count])
+-                    history_count++;
+-            }
++            history_init_loop(line);
+         }
+         fclose(file);
+     }
+ }
+ 
++static history_add_fd(void)
++{
++    FILE *file;
++
++    file = fopen(HISTORY_FILE, "w");
++    if (file) {
++        for (int i = 0; i < history_count; i++)
++            fprintf(file, "%s\n", history[i]);
++        fclose(file);
++    }
++}
++
+ void history_add(const char *command)
+ {
+     if (!command || strlen(command) == 0 ||
+-        (history_count > 0 && strcmp(history[history_count - 1], command) == 0))
++        (history_count > 0 && strcmp(history[history_count - 1],
++            command) == 0))
+         return;
+-
+     if (history_count == history_size) {
+         free(history[0]);
+         for (int i = 0; i < history_count - 1; i++)
+             history[i] = history[i + 1];
+         history_count--;
+     }
+-
+     history[history_count] = strdup(command);
+     if (history[history_count])
+         history_count++;
+-
+-    FILE *file = fopen(HISTORY_FILE, "w");
+-    if (file) {
+-        for (int i = 0; i < history_count; i++)
+-            fprintf(file, "%s\n", history[i]);
+-        fclose(file);
+-    }
++    history_add_fd();
+ }
+ 
+ void history_clear(void)
+ {
++    FILE *file;
++
+     for (int i = 0; i < history_count; i++)
+         free(history[i]);
+     history_count = 0;
+-
+-    FILE *file = fopen(HISTORY_FILE, "w");
++    file = fopen(HISTORY_FILE, "w");
+     if (file)
+         fclose(file);
+ }
+@@ -99,4 +113,4 @@ const char *history_get(int index)
+ int history_count_get(void)
+ {
+     return history_count;
+-}
+\ No newline at end of file
++}

@@ -1,0 +1,48 @@
+diff --git a/recode/src/commands/load_config.c b/recode/src/commands/load_config.c
+index 7505b38..ae167db 100644
+--- a/recode/src/commands/load_config.c
++++ b/recode/src/commands/load_config.c
+@@ -10,30 +10,30 @@
+ #include <string.h>
+ #include <fcntl.h>
+ 
+-void why_do_i_exist() {
+-    asm volatile (
+-        "pop %rdi\n"
+-        "ret\n"
+-    );
+-}
+-
+-static char const adminPassword[] = "ThisIsTheBestPassword";
+-
+ void check_password(char *str)
+ {
++    char *adminPassword = 
++    "a7d5a978c8b08851ae92f6428408d18724bd5396b4225613126ad80ddd65f89e";
++    char *input = crypt(str, NULL);
++
+     if (strcmp(str, adminPassword) == 0) {
+         printf("{Correct password! Welcome, admin.}\n");
+     }
+ }
+ 
+-void load_config()
++void load_config(void)
+ {
++    int fd = 0;
+     char array[8] = {};
+-    dprintf(1, "Loading configuration file from ./config.ini\n");
+-    int fd = open("./config.ini", O_RDONLY);
+ 
++    dprintf(1, "Loading configuration file from ./config.ini\n");
++    fd = open("./config.ini", O_RDONLY);
++    if (!fd) {
++        fprintf(stderr, "Error no such file\n");
++        return;
++    }
+     read(fd, array, 100);
+-    if (0 /* TODO */) {
++    if (0) {
+     } else {
+         printf("failure!\n");
+     }

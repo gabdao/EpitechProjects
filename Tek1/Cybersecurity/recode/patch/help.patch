@@ -1,0 +1,111 @@
+diff --git a/recode/src/commands/help.c b/recode/src/commands/help.c
+index 949f0c5..532ae34 100644
+--- a/recode/src/commands/help.c
++++ b/recode/src/commands/help.c
+@@ -4,49 +4,85 @@
+ ** File description:
+ ** help
+ */
+-
+ #include <stdio.h>
+ #include <string.h>
+ 
+-void help()
++static void display_reactor_commands(void)
+ {
+-    const char *commands[] = {
++    int count = 0;
++    const char *reactor_commands[] = {
+         "- init_reactor: Initialize the reactor for operation.",
+         "- check_reactor_status: Check the current status of the reactor.",
+-        "- activate_emergency_protocols: Activate emergency protocols (requires admin).",
+-        "- simulate_meltdown: Simulate a reactor meltdown for testing purposes.",
++        "- activate_emergency_protocols: Activate emergency protocols.",
++        "- simulate_meltdown: Simulate a reactor meltdown fortestingpurposes.",
+         "- check_cooling_pressure: Check the pressure in the cooling system.",
+         "- send_status_report: Send a status report to the control center.",
+         "- monitor_radiation_levels: Monitor radiation levels in the reactor.",
+         "- set_reactor_power: Adjust the reactor's power output.",
+         "- run_diagnostic: Run a full diagnostic on the reactor systems.",
+-        "- enable_remote_access: Enable or disable remote access to the reactor.",
++        "- enable_remote_access: Enableordisable remote access to thereactor.",
++        "- load_fuel_rods: Load fuel rods into the reactor.",
++        "- configure_cooling_system: Configure the cooling system."
++    };
++
++    count = sizeof(reactor_commands) / sizeof(reactor_commands[0]);
++    for (int i = 0; i < count; i++) {
++        printf("%s\n", reactor_commands[i]);
++    }
++}
++
++static void display_general_commands(void)
++{
++    int count = 0;
++    const char *general_commands[] = {
+         "- quit: Exit the console.",
+         "- help: Display this help message.",
+-        "- load_fuel_rods: Load fuel rods into the reactor.",
+         "- log_system_event: Log a system event.",
+         "- history: Display command history.",
+-        "- !n: Execute command number n from history."
+-        "- load_config: Load configuration from a file.",
+-        "- configure_cooling_system: Configure the cooling system.",
+-        "---- External libraries ----",
++        "- !n: Execute command number n from history.",
++        "- load_config: Load configuration from a file."
++    };
++
++    count = sizeof(general_commands) / sizeof(general_commands[0]);
++    for (int i = 0; i < count; i++) {
++        printf("%s\n", general_commands[i]);
++    }
++}
++
++static void display_external_libraries(void)
++{
++    int count = 0;
++    const char *external_commands[] = {
+         "- init_steam_turbine: Initialize the turbine.",
+         "- read_turbine_config: Read the turbine configuration.",
+         "- run_turbine: Run the turbine.",
+         "- turbine_temperature: Change the turbine temperature.",
+-        "- turbine_remote_access: Remote access to the turbine.",
+-
++        "- turbine_remote_access: Remote access to the turbine."
+     };
+-    int command_count = sizeof(commands) / sizeof(commands[0]);
+ 
+-    printf("Available commands :\n");
+-    for (int i = 0; i < command_count; i++) {
+-        printf("%s\n", commands[i]);
++    count = sizeof(external_commands) / sizeof(external_commands[0]);
++    printf("---- External libraries ----\n");
++    for (int i = 0; i < count; i++) {
++        printf("%s\n", external_commands[i]);
+     }
+-    printf("\n");
++}
++
++static void display_configuration_info(void)
++{
+     printf("Configuration:\n");
+-    printf("- .pipetorc: Create this file in your home directory or current directory\n");
++    printf("- .pipetorc: Create this file in your home directory or current");
++    printf(" directory\n");
+     printf("  to automatically execute commands at startup.\n");
+     printf("  Use 'exec <command>' to execute shell commands.\n");
+     printf("\n");
+-}
+\ No newline at end of file
++}
++
++void help(void)
++{
++    printf("Available commands :\n");
++    display_reactor_commands();
++    display_general_commands();
++    display_external_libraries();
++    printf("\n");
++    display_configuration_info();
++}

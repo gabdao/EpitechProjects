@@ -1,0 +1,11 @@
+#!/bin/bash
+
+cd ..
+
+(
+  while true; do
+    echo "simulate_meltdown"
+    sleep 0.2
+  done
+) | ./unpacked_pipetov2
+

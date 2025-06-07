@@ -1,0 +1,15 @@
+#!/bin/bash
+
+cd ..
+
+(echo "turbine_remote_access" | ./unpacked_pipetov2) &
+
+while true; do
+  filename=$(ls Data/remote_access*)
+  if [ -n "$filename" ]; then
+    echo "found :  $filename"
+    cat "$filename"
+    break
+  fi
+done
+

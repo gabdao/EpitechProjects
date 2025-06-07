@@ -1,0 +1,11 @@
+#!/bin/bash
+
+cd ..
+
+(
+  while true; do
+    echo "check_cooling_pressure"
+    sleep 0.2
+  done
+) | ./unpacked_pipetov2
+

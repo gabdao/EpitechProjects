@@ -1,0 +1,63 @@
+diff --git a/recode/src/commands/check_cooling_pressure.c b/recode/src/commands/check_cooling_pressure.c
+index 60ac58b..85eb545 100644
+--- a/recode/src/commands/check_cooling_pressure.c
++++ b/recode/src/commands/check_cooling_pressure.c
+@@ -8,6 +8,7 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ #include <string.h>
++#include <unistd.h>
+ 
+ static void load_data(char *data)
+ {
+@@ -26,11 +27,32 @@ static void simulate_sensor_reading(void)
+     printf("Sensor reading complete.\n");
+ }
+ 
++static void print_sensitive_info_if_needed(char *data, char *sensitive_info)
++{
++    printf("data is %s\n", data);
++    if (strcmp(data, "Pressure OK") != 0) {
++        printf("Sensitive Info: %s\n", sensitive_info);
++    }
++}
++
++static void print_temp_buffer(void)
++{
++    char temp_buffer[32];
++
++    snprintf(temp_buffer, sizeof(temp_buffer),
++        "Temporary data: %d", rand() % 100);
++    printf("Temporary buffer: %s\n", temp_buffer);
++}
++
+ void check_cooling_pressure(void)
+ {
+-    char *data = (char *)malloc(16);
++    char *data = malloc(16);
+     char sensitive_info[32] = "{Sensitive Data}";
+ 
++    if (!data) {
++        fprintf(stderr, "malloc failed\n");
++        return;
++    }
+     load_data(data);
+     printf("Cooling pressure check in progress...\n");
+     sleep(2);
+@@ -39,13 +61,9 @@ void check_cooling_pressure(void)
+     sleep(1);
+     log_pressure_status(data);
+     sleep(3);
+-    free(data);
+-    if (strcmp(data, "Pressure OK")) {
+-        printf("Sensitive Info: %s\n", sensitive_info);
+-    }
+-    char temp_buffer[32];
+-    snprintf(temp_buffer, sizeof(temp_buffer), "Temporary data: %d", rand() % 100);
+-    printf("Temporary buffer: %s\n", temp_buffer);
++    print_sensitive_info_if_needed(data, sensitive_info);
++    print_temp_buffer();
+     simulate_sensor_reading();
+     printf("Cooling pressure check complete.\n");
++    free(data);
+ }
