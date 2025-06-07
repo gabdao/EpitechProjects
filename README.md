@@ -17,6 +17,17 @@ Projects are organized into folders. Each folder typically includes:
 - Source code
 - Any related documents or tests
 
+## First Year subjects
+
+- Elementary Programming in C
+- Unix system Programming
+- Graphical
+- Mathematics
+- Devops
+- Cybersecurity
+- Web
+- Network and systems
+
 ## Technologies Used
 
 - C
